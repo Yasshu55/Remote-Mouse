@@ -1,4 +1,4 @@
-
+import Express from 'express'
 
 export const GlobalWebSocket = (app : any) =>{
     app.ws('/real-time', function(ws : any, req : Express.Request) {
