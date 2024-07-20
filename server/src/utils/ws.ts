@@ -1,11 +1,39 @@
 import Express from 'express'
+import robot from "robotjs"
+
+let previousPoint = [-1, -1];
 
 export const GlobalWebSocket = (app : any) =>{
     app.ws('/real-time', function(ws : any, req : Express.Request) {
         console.log("WebSocket connection established");
         ws.on('message', function(msg : any) {
-            console.log(msg);
-            ws.send(msg);
+            const data = JSON.parse(msg)
+            console.log(data)
+            const type = data.type
+
+            if(type === "move"){
+                const{pointerCoordinates,isFirstTouched} = data
+                const [xCoordinate, yCoordinate] = pointerCoordinates;
+                const {x : currentCursorOfX, y: currentCursorOfY} = robot.getMousePos()
+
+                if(xCoordinate !== -1 && yCoordinate !== -1){
+                    if(isFirstTouched === 1){
+                        previousPoint = [xCoordinate,yCoordinate]
+                    } else {
+                        const diffX = xCoordinate - previousPoint[0];
+                        const diffY = yCoordinate - previousPoint[1];
+
+                        const desktopCursorToBeAtX = currentCursorOfX + diffX * 3;
+                        const desktopCursorToBeAtY = currentCursorOfY + diffY * 3;
+                        robot.moveMouse(desktopCursorToBeAtX,desktopCursorToBeAtY)
+
+                        console.log(`Moving cursor : current ${currentCursorOfX},${currentCursorOfY} to -> ${desktopCursorToBeAtX},${desktopCursorToBeAtY}`);
+                        
+                        previousPoint = [xCoordinate,yCoordinate]
+
+                    }
+                }
+            }
         });
 
         ws.on("error", (err : any) => {

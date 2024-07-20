@@ -7,10 +7,13 @@ export default function TouchPadPage() {
   const mobileCheck = isMobile(userAgent);
   return (
     <div>
-        {mobileCheck?
+        {/* {mobileCheck?
         <WebSocketProvider>
           <Touchpad />
-        </WebSocketProvider> : <div>Open this from mobile</div>}
+        </WebSocketProvider> : <div>Open this from mobile</div>} */}
+        <WebSocketProvider>
+          <Touchpad />
+        </WebSocketProvider>
     </div>
   )
 }

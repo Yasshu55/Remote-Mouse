@@ -20,6 +20,10 @@ export const WebSocketProvider = ({children} : {children : ReactNode}) =>{
                 console.log("Connection established: ");
             };
 
+            socket.onmessage = (event) => {
+                console.log("Message received from server:", event.data);
+            };
+
             socket.onerror = (error) => {
               console.error("WebSocket error:", error);
             };
@@ -46,7 +50,7 @@ export const WebSocketProvider = ({children} : {children : ReactNode}) =>{
     }
 }
 
-export const useWebSocket = (): WebSocketContextValue => {
+export const useWebSocket = (): any => {
     const context = useContext(WebSocketContext);
     if (context === undefined) {
         throw new Error("useWebSocket must be used within a WebSocketProvider");

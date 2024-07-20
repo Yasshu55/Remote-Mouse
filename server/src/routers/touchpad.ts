@@ -4,7 +4,7 @@ import robot from 'robotjs'
 const router = Router()
 
 router.post('/click', (req,res) =>{
-    console.log("click func entered");
+
     robot.mouseClick();
     res.json({success: true})
 })
