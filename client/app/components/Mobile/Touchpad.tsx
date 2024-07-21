@@ -6,6 +6,7 @@ import { useWebSocket } from "../context/WebSocketProvider"
 import { TOUCHPAD_CLICK_URL,TOUCHPAD_LEFT_CLICK_URL,TOUCHPAD_RIGHT_CLICK_URL } from "@/utils/constants";
 import Keyboard from "./Keyboard";
 
+
 export default function Touchpad() {
     const {socket} = useWebSocket(); // get the socket which is created using contextApi
 
@@ -85,6 +86,7 @@ export default function Touchpad() {
     }
     
 
+
   return (
     <div className="flex flex-col items-center justify-center h-full w-full p-4">
     <h2 className="text-3xl font-bold mb-6">Touchpad</h2>
@@ -94,21 +96,24 @@ export default function Touchpad() {
     onTouchMove={touchMoveHandler}
     onTouchStart={() => (isFirstTouched.current = 1)}
     onClick={() => setIsClicked(true)}
-    className="bg-black w-full h-96 rounded-lg shadow-lg"
+    className="bg-[#292d2e] w-full h-96 rounded-lg shadow-lg"
     ></canvas>
       <div className="flex w-full mt-4">
         <button
           onClick={() => setMouseButtonClicked(-1)}
-          className="w-1/2 bg-blue-600 hover:bg-blue-700 rounded-l-lg mr-1 h-12 text-white transition-colors duration-300"
+          className="w-1/2 bg-blue-600 hover:bg-blue-700 rounded-lg mr-1 h-12 text-white transition-colors duration-300"
         >
           Left Click
         </button>
         <button
           onClick={() => setMouseButtonClicked(1)}
-          className="w-1/2 bg-blue-600 hover:bg-blue-700 rounded-r-lg h-12 text-white transition-colors duration-300"
+          className="w-1/2 bg-blue-600 hover:bg-blue-700 rounded-lg h-12 text-white transition-colors duration-300"
         >
           Right Click
         </button>
+      </div>
+      <div>
+        <Keyboard />
       </div>
     </div>
   </div>
