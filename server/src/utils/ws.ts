@@ -33,6 +33,14 @@ export const GlobalWebSocket = (app : any) =>{
 
                     }
                 }
+            } else if(type === "typing"){
+                const {enteredCharacter} = data
+                console.log("To be typed : ", enteredCharacter);
+                robot.typeString(enteredCharacter)
+            } else if(type === "specialType"){
+                const {specialCharInput} = data
+                console.log("To be executed : ", specialCharInput);
+                robot.keyTap(specialCharInput)
             }
         });
 
